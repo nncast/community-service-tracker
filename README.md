@@ -15,7 +15,7 @@ The official project repository is available here: [Community Service Tracker Gi
 - View attendance history and log manual adjustments
 - Export attendance reports as CSV filtered by student, academic year, semester, or event
 - Manage academic years and semesters
-- Promote students and handle graduation
+- Promote/Enroll students and handle graduation
 
 **Student/Staff Functions**
 - Secure login with password hashing
@@ -67,3 +67,13 @@ The official project repository is available here: [Community Service Tracker Gi
    ```bash
    python app.py
 6. Open a browser and go to http://127.0.0.1:5000 to access the dashboard.
+
+## Default Login Credentials
+- **Username:** admin
+- **Password:** admin123
+
+**Developers:**
+- Kimberly Bernabe
+- Janelle Ann Castillo
+- Hazel Sebastian
+- Louisse Glaze Villarente
