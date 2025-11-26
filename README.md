@@ -72,6 +72,8 @@ The official project repository is available here: [Community Service Tracker Gi
 - **Username:** admin
 - **Password:** admin123
 
+
+
 **Developers:**
 - Kimberly Bernabe
 - Janelle Ann Castillo
