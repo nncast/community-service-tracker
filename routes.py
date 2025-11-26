@@ -1,14 +1,22 @@
 from flask import render_template, request, redirect, url_for, flash, session
+<<<<<<< HEAD
 from datetime import datetime,timedelta
+=======
+from datetime import datetime
+>>>>>>> 9bc6b51 (Version 1.1 - updated project)
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import app, db
 from models import (
     User, AcademicYear, Semester, YearLevel, Student,
     Event, EventAttendance, EventAttendanceHistory
 )
+<<<<<<< HEAD
 import csv
 from io import StringIO      # <--- required
 from flask import Response, request
+=======
+
+>>>>>>> 9bc6b51 (Version 1.1 - updated project)
 # -------------------- Authentication --------------------
 @app.route("/", methods=["GET", "POST"])
 def login():
@@ -34,6 +42,7 @@ def dashboard():
     if 'user_id' not in session:
         flash("Please login first.")
         return redirect(url_for("login"))
+<<<<<<< HEAD
 
     # Total students (active only)
     total_students = Student.query.filter_by(status='active').count()
@@ -60,6 +69,11 @@ def dashboard():
         upcoming_events=upcoming_events,
         recent_changes=recent_changes
     )
+=======
+    return render_template("dashboard.html",
+                           username=session.get("username"),
+                           role=session.get("role"))
+>>>>>>> 9bc6b51 (Version 1.1 - updated project)
 
 
 @app.route("/logout")
@@ -68,10 +82,15 @@ def logout():
     flash("Logged out successfully.")
     return redirect(url_for("login"))
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9bc6b51 (Version 1.1 - updated project)
 # -------------------- Users CRUD --------------------
 @app.route("/users")
 def users():
     if 'user_id' not in session:
+<<<<<<< HEAD
         flash("Please login first.", "error")
         return redirect(url_for("login"))
 
@@ -80,6 +99,11 @@ def users():
         flash("You do not have permission to access this page.", "error")
         return redirect(url_for("dashboard"))
 
+=======
+        flash("Please login first.")
+        return redirect(url_for("login"))
+
+>>>>>>> 9bc6b51 (Version 1.1 - updated project)
     search = request.args.get("search", "").strip()
     role_filter = request.args.get("role", "")
     status_filter = request.args.get("status", "")
@@ -119,6 +143,7 @@ def add_user():
     flash("User added successfully.")
     return redirect(url_for("users"))
 
+<<<<<<< HEAD
 @app.route('/edit_user/<int:user_id>', methods=['POST'])
 def edit_user(user_id):
     if session.get('role') != 'admin':
@@ -143,6 +168,21 @@ def edit_user(user_id):
     flash('User updated successfully.', 'success')
     return redirect(url_for('users'))
 
+=======
+
+@app.route("/users/edit/<int:user_id>", methods=["POST"])
+def edit_user(user_id):
+    user = User.query.get_or_404(user_id)
+    user.username = request.form.get("username")
+    password = request.form.get("password")
+    if password:
+        user.password = generate_password_hash(password)
+    user.role = request.form.get("role")
+    user.status = request.form.get("status")
+    db.session.commit()
+    flash("User updated successfully.")
+    return redirect(url_for("users"))
+>>>>>>> 9bc6b51 (Version 1.1 - updated project)
 
 
 @app.route("/users/delete/<int:user_id>")
@@ -286,6 +326,7 @@ def delete_year_level(yl_id):
     flash("Year level deleted successfully.")
     return redirect(url_for("year_levels"))
 
+<<<<<<< HEAD
 # -------------------- Students --------------------
 @app.route("/students")
 def students():
@@ -298,6 +339,12 @@ def students():
         flash("You do not have permission to access this page.", "error")
         return redirect(url_for("dashboard"))
 
+=======
+
+# -------------------- Students --------------------
+@app.route("/students")
+def students():
+>>>>>>> 9bc6b51 (Version 1.1 - updated project)
     search = request.args.get("search", "").strip()
     status_filter = request.args.get("status", "")
     ay_filter = request.args.get("academic_year", "")
@@ -321,13 +368,19 @@ def students():
     students_list = query.order_by(Student.student_id).all()
     academic_years = AcademicYear.query.order_by(AcademicYear.year.desc()).all()
     year_levels = YearLevel.query.order_by(YearLevel.level, YearLevel.section).all()
+<<<<<<< HEAD
     
+=======
+>>>>>>> 9bc6b51 (Version 1.1 - updated project)
     return render_template("students.html", students=students_list, academic_years=academic_years,
                            year_levels=year_levels, search=search, status_filter=status_filter,
                            ay_filter=ay_filter, yl_filter=yl_filter)
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9bc6b51 (Version 1.1 - updated project)
 @app.route("/students/add", methods=["POST"])
 def add_student():
     student_id = request.form.get("student_id")
@@ -375,6 +428,7 @@ def delete_student(student_id):
 # -------------------- Events --------------------
 @app.route("/events")
 def events():
+<<<<<<< HEAD
     search = request.args.get("search", "").strip()
     ay_filter = request.args.get("academic_year")
     sem_filter = request.args.get("semester")
@@ -392,6 +446,11 @@ def events():
     year_levels = YearLevel.query.order_by(YearLevel.level, YearLevel.section).all()
     academic_years = AcademicYear.query.order_by(AcademicYear.year.desc()).all()
     return render_template("events.html", events=events_list, year_levels=year_levels, academic_years=academic_years)
+=======
+    events_list = Event.query.order_by(Event.date.desc()).all()
+    year_levels = YearLevel.query.order_by(YearLevel.level, YearLevel.section).all()
+    return render_template("events.html", events=events_list, year_levels=year_levels)
+>>>>>>> 9bc6b51 (Version 1.1 - updated project)
 
 
 @app.route("/events/add", methods=["POST"])
@@ -399,13 +458,18 @@ def add_event():
     name = request.form.get("name")
     date_str = request.form.get("date")
     required_hours = float(request.form.get("required_hours", 2.0))
+<<<<<<< HEAD
     selected_year_levels = request.form.getlist("year_levels")  # match the form checkbox name
+=======
+    selected_year_levels = request.form.getlist("year_levels")
+>>>>>>> 9bc6b51 (Version 1.1 - updated project)
 
     if not date_str:
         flash("Date is required.")
         return redirect(url_for("events"))
 
     date = datetime.strptime(date_str, "%Y-%m-%d").date()
+<<<<<<< HEAD
 
     # Find matching semester
     semester = Semester.query.filter(
@@ -446,6 +510,27 @@ def add_event():
 
     db.session.commit()
     flash("Event created successfully with semester auto-detected.")
+=======
+    target_years_str = ",".join(selected_year_levels)
+
+    event = Event(name=name, date=date, required_hours=required_hours, target_years=target_years_str)
+    db.session.add(event)
+    db.session.commit()
+
+    if "all" in selected_year_levels:
+        students = Student.query.filter_by(status="active").all()
+    else:
+        students = Student.query.filter(Student.status=="active",
+                                        Student.year_level_id.in_([int(yl) for yl in selected_year_levels])).all()
+
+    for student in students:
+        attendance = EventAttendance(event_id=event.id,
+                                     student_id=student.id,
+                                     accumulated_hours=required_hours)
+        db.session.add(attendance)
+    db.session.commit()
+    flash("Event created successfully with attendance.")
+>>>>>>> 9bc6b51 (Version 1.1 - updated project)
     return redirect(url_for("events"))
 
 # -------------------- Edit Event --------------------
@@ -453,17 +538,25 @@ def add_event():
 def edit_event(event_id):
     event = Event.query.get_or_404(event_id)
     year_levels = YearLevel.query.order_by(YearLevel.level, YearLevel.section).all()
+<<<<<<< HEAD
     academic_years = AcademicYear.query.order_by(AcademicYear.year.desc()).all()
+=======
+>>>>>>> 9bc6b51 (Version 1.1 - updated project)
 
     if request.method == "POST":
         name = request.form.get("name")
         date_str = request.form.get("date")
         required_hours = float(request.form.get("required_hours", 2.0))
+<<<<<<< HEAD
         selected_year_levels = request.form.getlist("target_years")
+=======
+        target_years = request.form.getlist("target_years")
+>>>>>>> 9bc6b51 (Version 1.1 - updated project)
 
         event.name = name
         event.date = datetime.strptime(date_str, "%Y-%m-%d").date()
         event.required_hours = required_hours
+<<<<<<< HEAD
         event.target_years = "all" if "all" in selected_year_levels else ",".join(selected_year_levels)
 
         semester = Semester.query.filter(
@@ -471,17 +564,25 @@ def edit_event(event_id):
             Semester.end_date >= event.date
         ).first()
         event.semester_id = semester.id if semester else None
+=======
+        event.target_years = "all" if "all" in target_years else ",".join(target_years)
+>>>>>>> 9bc6b51 (Version 1.1 - updated project)
 
         db.session.commit()
         flash("Event updated successfully.")
         return redirect(url_for("events"))
 
+<<<<<<< HEAD
     return render_template(
         "edit_event.html",
         event=event,
         year_levels=year_levels,
         academic_years=academic_years
     )
+=======
+    # GET request
+    return render_template("edit_event.html", event=event, year_levels=year_levels)
+>>>>>>> 9bc6b51 (Version 1.1 - updated project)
 
 
 # -------------------- Delete Event --------------------
@@ -512,12 +613,17 @@ def save_event_attendance(event_id):
     for attendance in attendances:
         attendance.timed_in = bool(request.form.get(f"timed_in_{attendance.id}"))
         attendance.timed_out = bool(request.form.get(f"timed_out_{attendance.id}"))
+<<<<<<< HEAD
         attendance.update_hours()  # Ensure this method exists
+=======
+        attendance.update_hours()  # Make sure your EventAttendance model has this method
+>>>>>>> 9bc6b51 (Version 1.1 - updated project)
 
     db.session.commit()
     flash("Attendance saved successfully.")
     return redirect(url_for("event_attendance", event_id=event_id))
 
+<<<<<<< HEAD
 # -------------------- Attendance Dashboard --------------------
 @app.route("/attendance_dashboard")
 def attendance_dashboard():
@@ -644,6 +750,26 @@ def attendance_dashboard():
         selected_sem_id=selected_sem_id
     )
 
+=======
+
+# -------------------- Attendance Dashboard --------------------
+@app.route("/attendance_dashboard")
+def attendance_dashboard():
+    students = Student.query.join(YearLevel).filter(Student.status=="active") \
+               .order_by(YearLevel.level, YearLevel.section, Student.student_id).all()
+
+    current_ay = AcademicYear.query.order_by(AcademicYear.year.desc()).first()
+    if current_ay:
+        events = Event.query.join(EventAttendance, isouter=True) \
+                .join(Student, EventAttendance.student_id == Student.id, isouter=True) \
+                .join(YearLevel, Student.year_level_id == YearLevel.id, isouter=True) \
+                .filter(YearLevel.academic_year_id == current_ay.id) \
+                .order_by(Event.date).all()
+    else:
+        events = []
+
+    return render_template("attendance_dashboard.html", students=students, events=events)
+>>>>>>> 9bc6b51 (Version 1.1 - updated project)
 
 
 @app.route("/attendance_dashboard/save", methods=["POST"])
@@ -683,6 +809,7 @@ def save_all_attendance():
     flash("Attendance and hour adjustments saved.")
     return redirect(url_for("attendance_dashboard"))
 
+<<<<<<< HEAD
 @app.route("/export_attendance")
 def export_attendance():
     # Get filters from query parameters
@@ -763,6 +890,15 @@ def attendance_history():
 
     logs = query.order_by(EventAttendanceHistory.changed_at.desc()).all()
 
+=======
+
+# -------------------- Attendance History --------------------
+@app.route("/attendance_history")
+def attendance_history():
+    logs = EventAttendanceHistory.query.order_by(
+        EventAttendanceHistory.changed_at.desc()
+    ).all()
+>>>>>>> 9bc6b51 (Version 1.1 - updated project)
     return render_template("attendance_history.html", logs=logs)
 
 
