@@ -38,3 +38,12 @@ The official project repository is available here: [Community Service Tracker Gi
 - Flask  
   ```bash
   pip install Flask
+- Flask-SQLAlchemy  
+  ```bash
+  pip install Flask-SQLAlchemy
+- Flask-Migrate  
+  ```bash
+  pip install Flask-Migrate
+- Flask-Migrate  
+  ```bash
+  pip install Werkzeug
