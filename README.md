@@ -24,7 +24,7 @@ The official project repository is available here: [Community Service Tracker Gi
 - Access downloadable attendance reports
 
 ## Technologies Used
-- Python 3.11+
+- Python 3.11+ (v3.11 recommended)
 - Flask
 - HTML, CSS, JavaScript
 - SQLite
