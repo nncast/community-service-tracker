@@ -19,7 +19,7 @@ The official project repository is available here: [Community Service Tracker Gi
 
 **Student/Staff Functions**
 - Secure login with password hashing
-- View personal attendance records
+- Add, view, and edit attendance records
 - Search and filter events
 - Access downloadable attendance reports
 
@@ -28,9 +28,6 @@ The official project repository is available here: [Community Service Tracker Gi
 - Flask
 - HTML, CSS, JavaScript
 - SQLite
-- Flask-SQLAlchemy
-- Flask-Migrate
-- Werkzeug
 
 ## Requirements
 - Python 3.11+  
@@ -47,3 +44,26 @@ The official project repository is available here: [Community Service Tracker Gi
 - Flask-Migrate  
   ```bash
   pip install Werkzeug
+
+## Installation
+1. Clone the repository or download the project files:
+   ```bash
+   git clone https://github.com/nncast/community-service-tracker.git
+2. Create a virtual environment and activate it:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate   # Linux/macOS
+   venv\Scripts\activate      # Windows
+
+3. Install required packages:
+   ```bash
+   pip install -r requirements.txt
+4. Initialize the database:
+   ```bash
+   flask db init
+   flask db migrate
+   flask db upgrade
+5. Run the application:
+   ```bash
+   python app.py
+6. Open a browser and go to http://127.0.0.1:5000 to access the dashboard.
