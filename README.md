@@ -1,25 +1,40 @@
-Community Service Tracker
+# Community Service Tracker  
+(2025)
 
-Features
+**Community Service Tracker** is a Flask-based web application designed to help IT students and administrators track community service participation.  
+It provides tools for event management, student management, attendance logging, hour computation, and user authentication.  
+The official project repository is available here: [Community Service Tracker GitHub](https://github.com/nncast/community-service-tracker)
 
-User authentication and role-based access (Admin, Staff)
+## Features
 
-Manage students, year levels, academic years, and semesters
+**Admin Functions**
+- Manage user accounts with role-based access (admin, staff)
+- Add, edit, and remove students, including year level and academic year
+- Create, update, and delete events with semester and year level targeting
+- Track student attendance including time-in, time-out, and total hours
+- View attendance history and log manual adjustments
+- Export attendance reports as CSV filtered by student, academic year, semester, or event
+- Manage academic years and semesters
+- Promote students and handle graduation
 
-Create, edit, and delete community service events
+**Student/Staff Functions**
+- Secure login with password hashing
+- View personal attendance records
+- Search and filter events
+- Access downloadable attendance reports
 
-Track student attendance with time-in, time-out, and accumulated hours
+## Technologies Used
+- Python 3.11+
+- Flask
+- HTML, CSS, JavaScript
+- SQLite
+- Flask-SQLAlchemy
+- Flask-Migrate
+- Werkzeug
 
-Attendance dashboard with filters by academic year, semester, year level, and events
-
-Export attendance and hours to CSV
-
-Promotion of students to the next year level
-
-Basic UI for event and student management
-
-Default Admin Account
-
-Username: admin
-
-Password: admin123
+## Requirements
+- Python 3.11+  
+  [Download Python](https://www.python.org/downloads/)  
+- Flask  
+  ```bash
+  pip install Flask
